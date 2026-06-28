@@ -1,0 +1,87 @@
+{
+  "personal": {
+    "name": "Neumann",
+    "role": "前端开发工程师",
+    "bio": "3 年前端开发经验，专注 React / Vue 技术栈，追求简洁高效的代码与优雅的用户体验。",
+    "avatar": "/logo.jpg"
+  },
+  "contacts": [
+    { "type": "github", "label": "GitHub", "value": "@Neumann615", "href": "https://github.com/Neumann615" },
+    { "type": "email", "label": "Email", "value": "neumann615@outlook.com", "href": "mailto:neumann615@outlook.com" },
+    { "type": "wechat", "label": "微信", "value": "扫码添加", "href": "/wx-qr-code.jpg" }
+  ],
+  "skills": [
+    "html",
+    "css",
+    "js",
+    "ts",
+    "nodejs",
+    "python",
+    "react",
+    "vue",
+    "angular",
+    "tailwindcss",
+    "nextjs",
+    "nuxtjs",
+    "vite",
+    "webpack",
+    "flutter",
+    "vercel",
+    "nginx",
+    "docker",
+    "mysql",
+    "git"
+  ],
+  "projects": [
+    {
+      "icon": "/logo.jpg",
+      "title": "Z-Blog",
+      "description": "基于 Next.js 14 构建的个人技术博客，支持 MDX 渲染、暗色模式、全文搜索。",
+      "url": "https://xiaonuo.love",
+      "github": "https://github.com/Neumann615/z-blog",
+      "tags": ["Next.js", "TailwindCSS", "MDX"]
+    },
+    {
+      "icon": "/z-docs-logo.png",
+      "title": "Z-Docs",
+      "description": "基于 VitePress 构建的前端知识文档站点，涵盖 React、Vue、工程化等主题。",
+      "url": "https://docs.xiaonuo.love",
+      "github": "https://github.com/Neumann615/z-docs",
+      "tags": ["VitePress", "Markdown"]
+    },
+    {
+      "icon": "/logo.jpg",
+      "title": "Z-Admin",
+      "description": "React + Ant Design 后台管理模板，权限路由、国际化、主题切换。",
+      "url": "https://bupu-admin.xiaonuo.love",
+      "github": "https://github.com/Neumann615/z-admin",
+      "tags": ["React", "Antd"]
+    },
+    {
+      "icon": "/logo.jpg",
+      "title": "Z-Board",
+      "description": "原生 JS + Canvas 在线白板与截图工具，支持画笔、形状、文字标注。",
+      "url": "https://bupu-board.xiaonuo.love",
+      "github": "https://github.com/Neumann615/z-board",
+      "tags": ["JavaScript", "Canvas"]
+    },
+    {
+      "icon": "/image/logo/jyxz.svg",
+      "title": "就业小知",
+      "description": "集成语音识别、百度地图与数字人的智能求职机系统。",
+      "url": "https://xiaozhi.beikesmart.com",
+      "tags": ["Vue3", "讯飞", "百度地图"]
+    },
+    {
+      "icon": "/image/logo/uoffer.ico",
+      "title": "Uoffer 留学站",
+      "description": "Nuxt.js 3 全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
+      "url": "https://uoffer.xiaonuo.love",
+      "tags": ["Nuxt.js", "UnoCSS"]
+    }
+  ],
+  "github": {
+    "username": "Neumann615",
+    "label": "GitHub 动态"
+  }
+}

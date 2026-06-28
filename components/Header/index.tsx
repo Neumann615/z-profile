@@ -1,14 +1,10 @@
-import {Avatar} from "./Avatar"
-import {Navigation} from "./Navigation"
+import {ThemeSwitch} from "./ThemeSwitch"
 
 function Header() {
     return (
-        <div className={"w-full h-14 select-none animate-in duration-1000 fade-in"}>
-            <div
-                className={'w-full h-full relative pl-8 pr-12 flex justify-between items-center max-md:pr-6 max-md:pl-6'}>
-                {/*<div className={'absolute w-full h-full bg-white dark:bg-black -z-50 opacity-40 left-0 top-0'}></div>*/}
-                <Avatar></Avatar>
-                <Navigation></Navigation>
+        <div className="fixed top-4 right-6 z-50 select-none">
+            <div className="p-2 rounded-full bg-white/60 dark:bg-zinc-800/60 backdrop-blur-md border border-zinc-200/60 dark:border-zinc-700/60 shadow-sm">
+                <ThemeSwitch></ThemeSwitch>
             </div>
         </div>
     )

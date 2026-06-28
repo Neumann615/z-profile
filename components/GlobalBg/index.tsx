@@ -71,9 +71,9 @@ export function GlobalBg() {
             if (theme === 'dark') {
                 stroke(115, 115, 115, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
             } else {
-                stroke(200, 200, 200, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
+                stroke(100, 100, 100, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
             }
-            circle(nx, ny - offsetY, 1)
+            circle(nx, ny - offsetY, 1.2)
         }
     }
 

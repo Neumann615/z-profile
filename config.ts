@@ -246,18 +246,18 @@ export const config: {
 } = {
     menuData: [
         {
-            text: "博客",
-            path: "/posts",
+            text: "技术栈",
+            path: "/#tech",
             icon: BookText,
         },
         {
             text: "项目",
-            path: "/project",
+            path: "/#projects",
             icon: Sparkles,
         },
         {
-            text: "链接",
-            path: "/link",
+            text: "联系",
+            path: "/#contact",
             icon: Link,
         },
     ],
