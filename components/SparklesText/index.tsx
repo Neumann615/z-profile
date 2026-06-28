@@ -46,9 +46,21 @@ const shapes = {
 
 type ShapeType = keyof typeof shapes
 
+interface Sparkle {
+    id: number
+    left: number
+    top: number
+    delay: number
+    duration: number
+    size: number
+    color: string
+    shape: ShapeType
+    rotate: number
+}
+
 export function SparklesText({ text, fontSize = 30 }: { text: string; fontSize?: number }) {
     const [cycle, setCycle] = useState(0)
-    const [sparkles, setSparkles] = useState<ReturnType<typeof generate> extends (infer U)[] ? U : never>([])
+    const [sparkles, setSparkles] = useState<Sparkle[]>([])
     const [fading, setFading] = useState(false)
     const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
