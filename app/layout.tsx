@@ -1,43 +1,42 @@
-'use client'
-import {ThemeProvider} from 'next-themes'
-import {GlobalLoading} from '@/components/GlobalLoading'
+import type { Metadata } from "next"
 import "./globals.css"
-import {useState} from 'react'
+import { LayoutClientWrapper } from "@/components/LayoutClientWrapper"
 
-// const geistSans = localFont({
-//     src: "./fonts/GeistVF.woff",
-//     variable: "--font-geist-sans",
-//     weight: "100 900",
-// });
-// const geistMono = localFont({
-//     src: "./fonts/GeistMonoVF.woff",
-//     variable: "--font-geist-mono",
-//     weight: "100 900",
-// });
-
+export const metadata: Metadata = {
+    title: "Neumann - 个人主页",
+    description: "前端开发工程师 · 个人主页",
+}
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode
 }>) {
-    const [isLoading, setIsLoading] = useState(true)
     return (
-        <html lang="en" className={"m-0 h-full p-0 font-sans"}>
-        <body className={`w-full h-full`}>
-        {isLoading ? <GlobalLoading loadingFinished={() => {
-                setIsLoading(false)
-            }}/> :
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
-            </ThemeProvider>}
-
-        </body>
+        <html lang="en" className="m-0 h-full p-0 font-sans" suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function() {
+                                try {
+                                    var theme = localStorage.getItem('theme')
+                                    if (theme === 'dark' || theme === 'light') {
+                                        document.documentElement.classList.add(theme)
+                                        return
+                                    }
+                                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                                        document.documentElement.classList.add('dark')
+                                    }
+                                } catch (e) {}
+                            })()
+                        `,
+                    }}
+                />
+            </head>
+            <body className="w-full h-full">
+                <LayoutClientWrapper>{children}</LayoutClientWrapper>
+            </body>
         </html>
     )
 }

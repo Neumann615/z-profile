@@ -1,11 +1,11 @@
 'use client';
-import {Moon, Sun} from 'lucide-react'
-import {useTheme} from 'next-themes'
-import {flushSync} from 'react-dom'
-import {useRef} from 'react'
+import { Moon, Sun } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { flushSync } from 'react-dom'
+import { useRef } from 'react'
 
 export function ThemeSwitch() {
-    const {theme, setTheme} = useTheme()
+    const { theme, setTheme } = useTheme()
     const darkBtnRef = useRef<HTMLDivElement>(null)
 
     function toggleDarkMode() {
@@ -16,7 +16,7 @@ export function ThemeSwitch() {
             setTheme(theme === 'light' ? 'dark' : 'light')
             return
         }
-        const {top, left, width, height} = darkBtnRef.current.getBoundingClientRect()
+        const { top, left, width, height } = darkBtnRef.current.getBoundingClientRect()
         const x = left + width / 2
         const y = top + height / 2
         const right = window.innerWidth - left
@@ -54,9 +54,9 @@ export function ThemeSwitch() {
 
     return <div ref={darkBtnRef} onClick={toggleDarkMode}>
         {theme === 'dark' ? (
-            <Moon className="w-5.5 text-zinc-500 cursor-pointer"/>
+            <Moon className="w-5.5 text-zinc-500 cursor-pointer" />
         ) : (
-            <Sun className="w-5.5 text-zinc-500 cursor-pointer"/>
+            <Sun className="w-5.5 text-zinc-500 cursor-pointer" />
         )}
     </div>
 }

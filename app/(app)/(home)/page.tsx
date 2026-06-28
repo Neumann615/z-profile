@@ -2,6 +2,7 @@
 
 import { GitHubIcon, MailIcon, WxIcon } from '@/components/Icon'
 import { SparklesText } from '@/components/SparklesText'
+import { GithubContributions } from '@/components/GithubContributions'
 import { cn } from '@/utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -37,12 +38,11 @@ function useInView(threshold = 0.1) {
 export default function Home() {
     return (
         <div className="mx-auto max-w-6xl w-full px-4 md:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row lg:gap-8 min-h-screen">
+            <div className="flex flex-col lg:flex-row lg:gap-8 lg:h-[calc(100vh-64px)] lg:overflow-hidden">
                 <Sidebar />
-                <main className="flex-1 lg:pt-8 pb-12">
+                <main className="flex-1 lg:pt-4 pb-4 lg:overflow-y-auto">
                     <SkillSection />
                     <ProjectSection />
-                    <GithubSection />
                     <Footer />
                 </main>
             </div>
@@ -54,7 +54,7 @@ export default function Home() {
 
 function Sidebar() {
     return (
-        <aside className="lg:w-[300px] lg:sticky lg:top-8 lg:self-start pt-8 lg:pt-12 pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
+        <aside className="lg:w-[280px] lg:sticky lg:top-8 lg:self-start pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
             <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
                 <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-zinc-400 to-zinc-600 dark:from-zinc-500 dark:to-zinc-300 blur-md opacity-30" />
@@ -100,6 +100,8 @@ function Sidebar() {
                     )
                 })}
             </div>
+
+            <GithubContributions />
         </aside>
     )
 }
@@ -135,7 +137,7 @@ function SkillSection() {
         <section
             ref={ref}
             className={cn(
-                'mb-8 transition-all duration-500',
+                'mb-4 transition-all duration-500',
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
         >
@@ -264,38 +266,11 @@ function ProjectSection() {
     )
 }
 
-/* ========== GitHub 贡献图 ========== */
-
-function GithubSection() {
-    const { ref, inView } = useInView(0.05)
-    return (
-        <section
-            ref={ref}
-            className={cn(
-                'mt-8 transition-all duration-500 delay-200',
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-        >
-            <h2 className="text-sm font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
-                {profile.github.label}
-            </h2>
-            <div className="rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 overflow-hidden p-3">
-                <img
-                    src={`https://ghchart.rshah.org/${profile.github.username}`}
-                    alt="GitHub Contribution Chart"
-                    className="w-full h-auto rounded-lg dark:invert dark:hue-rotate-180"
-                    loading="lazy"
-                />
-            </div>
-        </section>
-    )
-}
-
 /* ========== Footer ========== */
 
 function Footer() {
     return (
-        <footer className="mt-8 pt-6 border-t border-zinc-200/50 dark:border-zinc-700/50">
+        <footer className="mt-4 pt-3 border-t border-zinc-200/50 dark:border-zinc-700/50">
             <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-mono">
                 Built with Next.js & Tailwind CSS · © {new Date().getFullYear()} {profile.personal.name}
             </p>
