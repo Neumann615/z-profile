@@ -6,9 +6,24 @@
     "avatar": "/logo.jpg"
   },
   "contacts": [
-    { "type": "wechat", "label": "微信", "value": "Z", "href": "/wx-qr-code.png" },
-    { "type": "email", "label": "Email", "value": "2022095028@qq.com", "href": "mailto:neumann615@outlook.com" },
-    { "type": "github", "label": "GitHub", "value": "@Neumann615", "href": "https://github.com/Neumann615" }
+    {
+      "type": "wechat",
+      "label": "微信",
+      "value": "Z",
+      "href": "/wx-qr-code.png"
+    },
+    {
+      "type": "email",
+      "label": "Email",
+      "value": "2022095028@qq.com",
+      "href": "mailto:neumann615@outlook.com"
+    },
+    {
+      "type": "github",
+      "label": "GitHub",
+      "value": "@Neumann615",
+      "href": "https://github.com/Neumann615"
+    }
   ],
   "skills": [
     "html",
@@ -34,11 +49,11 @@
   ],
   "projects": [
     {
-      "icon": "/z-docs-logo.png",
-      "title": "Z-Docs",
+      "icon": "/logo.jpg",
+      "title": "RenoucZion",
       "description": "基于 VitePress 构建的前端知识文档站点，涵盖 React、Vue、工程化等主题。",
       "url": "https://zzzpupu.xin",
-      "github": "https://github.com/Neumann615/z-docs",
+      "github": "https://github.com/Neumann615/RenoucZion",
       "tags": ["VitePress", "Markdown"]
     },
     {
@@ -47,7 +62,7 @@
       "description": "React + Ant Design 后台管理模板，权限路由、国际化、主题切换。",
       "url": "https://admin.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-admin",
-      "tags": ["React", "Antd"]
+      "tags": ["React", "Antd", "Vite"]
     },
     {
       "icon": "/logo.jpg",
@@ -55,18 +70,11 @@
       "description": "原生 JS + Canvas 在线白板与截图工具，支持画笔、形状、文字标注。",
       "url": "https://board.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-board",
-      "tags": ["JavaScript", "Canvas"]
+      "tags": ["TypeScript", "Canvas", "Whiteboard" , "Screenshot"]
     },
     {
-      "icon": "/image/logo/jyxz.svg",
-      "title": "就业小知",
-      "description": "集成语音识别、百度地图与数字人的智能求职机系统。",
-      "url": "https://xiaozhi.beikesmart.com",
-      "tags": ["Vue3", "讯飞", "百度地图"]
-    },
-    {
-      "icon": "/image/logo/uoffer.ico",
-      "title": "Uoffer 留学站",
+      "icon": "/logo.jpg",
+      "title": "Z-Uoffer",
       "description": "Nuxt.js 3 全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
       "url": "https://uoffer.zzzpupu.xin",
       "tags": ["Nuxt.js", "UnoCSS"]

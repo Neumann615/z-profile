@@ -3,6 +3,7 @@
 import { GitHubIcon, MailIcon, WxIcon } from '@/components/Icon'
 import { SparklesText } from '@/components/SparklesText'
 import { GithubContributions } from '@/components/GithubContributions'
+import { LinkPreview } from '@/components/LinkPreview'
 import { cn } from '@/utils'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -187,60 +188,62 @@ function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
         : 'rgba(0,0,0,0.07)'
 
     return (
-        <a
-            ref={cardRef}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseMove={handleMouseMove}
-            className="group relative block p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-sm transition-all overflow-hidden"
-        >
-            {/* 聚光效果 */}
-            <div
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                    background: `radial-gradient(circle 200px at ${pos.x * 100}% ${pos.y * 100}%, ${glowColor}, transparent 80%)`,
-                }}
-            />
-            <div className="relative z-[1]">
-                <div className="flex items-center gap-2.5 mb-2">
-                    <Image
-                        src={project.icon}
-                        alt={project.title}
-                        width={24}
-                        height={24}
-                        className="rounded-md w-6 h-6 object-cover flex-shrink-0"
-                    />
-                    <h3 className="font-semibold text-sm text-zinc-800 dark:text-zinc-100 truncate">
-                        {project.title}
-                    </h3>
-                    {project.github && (
-                        <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="ml-auto text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors flex-shrink-0"
-                        >
-                            <GitHubIcon className="w-3.5 h-3.5" />
-                        </a>
-                    )}
+        <LinkPreview url={project.url}>
+            <a
+                ref={cardRef}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseMove={handleMouseMove}
+                className="group relative block p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-sm transition-all overflow-hidden"
+            >
+                {/* 聚光效果 */}
+                <div
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                        background: `radial-gradient(circle 200px at ${pos.x * 100}% ${pos.y * 100}%, ${glowColor}, transparent 80%)`,
+                    }}
+                />
+                <div className="relative z-[1]">
+                    <div className="flex items-center gap-2.5 mb-2">
+                        <Image
+                            src={project.icon}
+                            alt={project.title}
+                            width={24}
+                            height={24}
+                            className="rounded-md w-6 h-6 object-cover flex-shrink-0"
+                        />
+                        <h3 className="font-semibold text-sm text-zinc-800 dark:text-zinc-100 truncate">
+                            {project.title}
+                        </h3>
+                        {project.github && (
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="ml-auto text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors flex-shrink-0"
+                            >
+                                <GitHubIcon className="w-3.5 h-3.5" />
+                            </a>
+                        )}
+                    </div>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-2.5 line-clamp-2">
+                        {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1">
+                        {project.tags.map((tag, i) => (
+                            <span
+                                key={i}
+                                className="px-1.5 py-0.5 text-[10px] rounded-md border border-zinc-200 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 bg-zinc-50/80 dark:bg-zinc-800/50"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
                 </div>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-2.5 line-clamp-2">
-                    {project.description}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                    {project.tags.map((tag, i) => (
-                        <span
-                            key={i}
-                            className="px-1.5 py-0.5 text-[10px] rounded-md border border-zinc-200 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 bg-zinc-50/80 dark:bg-zinc-800/50"
-                        >
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            </div>
-        </a>
+            </a>
+        </LinkPreview>
     )
 }
 
