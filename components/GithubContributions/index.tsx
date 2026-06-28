@@ -174,7 +174,7 @@ export function GithubContributions() {
                     <div className="h-3 w-12 bg-zinc-200 dark:bg-zinc-700 rounded" />
                     <div className="h-3 w-6 bg-zinc-200 dark:bg-zinc-700 rounded" />
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2">
                     {Array.from({ length: 4 }, (_, mi) => (
                         <div key={mi}>
                             <div className="h-2.5 w-6 bg-zinc-200 dark:bg-zinc-700 rounded mb-1" />
@@ -237,8 +237,8 @@ export function GithubContributions() {
                 </button>
             </div>
 
-            {/* 2×2 月份网格：只渲染有数据的月份 */}
-            <div className="grid grid-cols-2 gap-x-2 gap-y-2.5">
+            {/* 月份网格：sm 2×2 / md 1×4 / lg 2×2 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-x-2 gap-y-2.5">
                 {currentMonths
                     .filter((mKey) => allDays.some((d) => d.date.startsWith(mKey)))
                     .map((mKey) => {

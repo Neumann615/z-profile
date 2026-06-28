@@ -1,14 +1,14 @@
 {
   "personal": {
-    "name": "Neumann",
+    "name": "Neumann615",
     "role": "前端开发工程师",
-    "bio": "3 年前端开发经验，专注 React / Vue 技术栈，追求简洁高效的代码与优雅的用户体验。",
+    "bio": "热爱前端与开源，追求前沿技术并拥抱 AI。待人松弛，工作苛刻较真、自驱力强，凡事力求尽善尽美。",
     "avatar": "/logo.jpg"
   },
   "contacts": [
-    { "type": "github", "label": "GitHub", "value": "@Neumann615", "href": "https://github.com/Neumann615" },
-    { "type": "email", "label": "Email", "value": "neumann615@outlook.com", "href": "mailto:neumann615@outlook.com" },
-    { "type": "wechat", "label": "微信", "value": "扫码添加", "href": "/wx-qr-code.jpg" }
+    { "type": "wechat", "label": "微信", "value": "Z", "href": "/wx-qr-code.png" },
+    { "type": "email", "label": "Email", "value": "2022095028@qq.com", "href": "mailto:neumann615@outlook.com" },
+    { "type": "github", "label": "GitHub", "value": "@Neumann615", "href": "https://github.com/Neumann615" }
   ],
   "skills": [
     "html",

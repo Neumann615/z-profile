@@ -38,9 +38,9 @@ function useInView(threshold = 0.1) {
 export default function Home() {
     return (
         <div className="mx-auto max-w-6xl w-full px-4 md:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row lg:gap-8 lg:h-[calc(100vh-64px)] lg:overflow-hidden">
+            <div className="flex flex-col lg:flex-row lg:gap-8">
                 <Sidebar />
-                <main className="flex-1 lg:pt-4 pb-4 lg:overflow-y-auto">
+                <main className="flex-1 lg:pt-4 pb-4">
                     <SkillSection />
                     <ProjectSection />
                     <Footer />
@@ -54,7 +54,7 @@ export default function Home() {
 
 function Sidebar() {
     return (
-        <aside className="lg:w-[280px] lg:sticky lg:top-8 lg:self-start pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
+        <aside className="pt-4 lg:pt-0 lg:w-[280px] pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
             <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
                 <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-zinc-400 to-zinc-600 dark:from-zinc-500 dark:to-zinc-300 blur-md opacity-30" />
@@ -78,11 +78,11 @@ function Sidebar() {
                 </div>
             </div>
 
-            <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-[280px]">
+            <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                 {profile.personal.bio}
             </p>
 
-            <div className="mt-4 flex flex-row lg:flex-col gap-2 lg:gap-1">
+            <div className="mt-4 flex flex-col sm:flex-row lg:flex-col gap-2 lg:gap-1">
                 {profile.contacts.map((item) => {
                     const Icon = iconMap[item.type]
                     if (!Icon) return null
