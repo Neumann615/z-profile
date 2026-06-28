@@ -7,7 +7,7 @@ import { useEffect, useRef } from 'react'
 
 export function GlobalBg() {
     const el = useRef<HTMLDivElement>(null)
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const {
         mount,
         unmount,
@@ -51,7 +51,7 @@ export function GlobalBg() {
 
     function setup() {
         createCanvas(w, h)
-        background(theme === 'dark' ? '#000' : '#ffffff')
+        background(resolvedTheme === 'dark' ? '#000' : '#ffffff')
         stroke('#ccc')
         noFill()
         noiseSeed(+new Date())
@@ -59,7 +59,7 @@ export function GlobalBg() {
     }
 
     function draw({ circle }: P5I) {
-        background(theme === 'dark' ? '#000' : '#ffffff')
+        background(resolvedTheme === 'dark' ? '#000' : '#ffffff')
         const t = +new Date() / 10000
 
         for (const p of points) {
@@ -68,7 +68,7 @@ export function GlobalBg() {
             const length = (noise(x / SCALE, y / SCALE, t * 2) + 0.5) * LENGTH
             const nx = x + cos(rad) * length
             const ny = y + sin(rad) * length
-            if (theme === 'dark') {
+            if (resolvedTheme === 'dark') {
                 stroke(115, 115, 115, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
             } else {
                 stroke(100, 100, 100, (Math.abs(cos(rad)) * 0.8 + 0.2) * p.opacity * 255)
@@ -92,13 +92,12 @@ export function GlobalBg() {
 
 
     useEffect(() => {
-
         restart()
         window.addEventListener('resize', windowResize)
         return () => {
             unmount()
             window.removeEventListener('resize', windowResize)
         }
-    }, [theme])
+    }, [resolvedTheme])
     return <div ref={el} className="z-[-999] fixed bottom-0 left-0 right-0 top-0 w-full h-full select-none"></div>
 }

@@ -34,18 +34,10 @@
   ],
   "projects": [
     {
-      "icon": "/logo.jpg",
-      "title": "Z-Blog",
-      "description": "基于 Next.js 14 构建的个人技术博客，支持 MDX 渲染、暗色模式、全文搜索。",
-      "url": "https://xiaonuo.love",
-      "github": "https://github.com/Neumann615/z-blog",
-      "tags": ["Next.js", "TailwindCSS", "MDX"]
-    },
-    {
       "icon": "/z-docs-logo.png",
       "title": "Z-Docs",
       "description": "基于 VitePress 构建的前端知识文档站点，涵盖 React、Vue、工程化等主题。",
-      "url": "https://docs.xiaonuo.love",
+      "url": "https://zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-docs",
       "tags": ["VitePress", "Markdown"]
     },
@@ -53,7 +45,7 @@
       "icon": "/logo.jpg",
       "title": "Z-Admin",
       "description": "React + Ant Design 后台管理模板，权限路由、国际化、主题切换。",
-      "url": "https://bupu-admin.xiaonuo.love",
+      "url": "https://admin.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-admin",
       "tags": ["React", "Antd"]
     },
@@ -61,7 +53,7 @@
       "icon": "/logo.jpg",
       "title": "Z-Board",
       "description": "原生 JS + Canvas 在线白板与截图工具，支持画笔、形状、文字标注。",
-      "url": "https://bupu-board.xiaonuo.love",
+      "url": "https://board.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-board",
       "tags": ["JavaScript", "Canvas"]
     },
@@ -76,7 +68,7 @@
       "icon": "/image/logo/uoffer.ico",
       "title": "Uoffer 留学站",
       "description": "Nuxt.js 3 全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
-      "url": "https://uoffer.xiaonuo.love",
+      "url": "https://uoffer.zzzpupu.xin",
       "tags": ["Nuxt.js", "UnoCSS"]
     }
   ],

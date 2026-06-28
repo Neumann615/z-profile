@@ -5,15 +5,17 @@ import { flushSync } from 'react-dom'
 import { useRef } from 'react'
 
 export function ThemeSwitch() {
-    const { theme, setTheme } = useTheme()
+    const { resolvedTheme, setTheme } = useTheme()
     const darkBtnRef = useRef<HTMLDivElement>(null)
 
     function toggleDarkMode() {
+        const next = resolvedTheme === 'dark' ? 'light' : 'dark'
+
         if (
             !darkBtnRef.current ||
             !document.startViewTransition
         ) {
-            setTheme(theme === 'light' ? 'dark' : 'light')
+            setTheme(next)
             return
         }
         const { top, left, width, height } = darkBtnRef.current.getBoundingClientRect()
@@ -27,7 +29,7 @@ export function ThemeSwitch() {
         )
         const transition = document.startViewTransition(() => {
             flushSync(() => {
-                setTheme(theme === 'light' ? 'dark' : 'light')
+                setTheme(next)
             })
         })
         transition.ready.then(() => {
@@ -41,19 +43,21 @@ export function ThemeSwitch() {
             ]
             document.documentElement.animate(
                 {
-                    clipPath: theme === 'light' ? clipPath : clipPath2
+                    clipPath: resolvedTheme === 'light' ? clipPath : clipPath2
                 },
                 {
                     duration: 600,
                     easing: 'ease-in',
-                    pseudoElement: theme === 'light' ? '::view-transition-new(root)' : '::view-transition-old(root)',
+                    pseudoElement: resolvedTheme === 'light' ? '::view-transition-new(root)' : '::view-transition-old(root)',
                 }
             )
         })
     }
 
+    const isDark = resolvedTheme === 'dark'
+
     return <div ref={darkBtnRef} onClick={toggleDarkMode}>
-        {theme === 'dark' ? (
+        {isDark ? (
             <Moon className="w-5.5 text-zinc-500 cursor-pointer" />
         ) : (
             <Sun className="w-5.5 text-zinc-500 cursor-pointer" />
