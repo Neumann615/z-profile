@@ -3,7 +3,7 @@ import "./globals.css"
 import { LayoutClientWrapper } from "@/components/LayoutClientWrapper"
 
 export const metadata: Metadata = {
-    title: "Neumann - 个人主页",
+    title: "Neumann615(Z)",
     description: "前端开发工程师 · 个人主页",
 }
 

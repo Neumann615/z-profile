@@ -54,7 +54,7 @@ export default function Home() {
 
 function Sidebar() {
     return (
-        <aside className="pt-4 lg:pt-0 lg:w-[280px] pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
+        <aside className="pt-4 lg:pt-6 lg:w-[280px] pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
             <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
                 <div className="relative flex-shrink-0">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-zinc-400 to-zinc-600 dark:from-zinc-500 dark:to-zinc-300 blur-md opacity-30" />
@@ -141,7 +141,7 @@ function SkillSection() {
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
         >
-            <h2 className="text-sm font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
                 技术栈
             </h2>
             <div className="grid grid-cols-6 sm:grid-cols-12 gap-1.5">
@@ -254,7 +254,7 @@ function ProjectSection() {
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
         >
-            <h2 className="text-sm font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
+            <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
                 个人项目
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
