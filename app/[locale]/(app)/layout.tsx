@@ -10,7 +10,6 @@ export default function RootLayout({
     return (
         <div id='z-container' className={"w-full h-full overflow-y-auto overflow-x-hidden scroll scroll-smooth focus:scroll-auto"}>
             <GlobalBg/>
-            {/* 内容区域盒子 */}
             <Header></Header>
             <Main>{children}</Main>
         </div>

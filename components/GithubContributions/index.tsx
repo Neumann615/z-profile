@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import { useTheme } from "next-themes"
+import { useLocale, useTranslations } from "next-intl"
 
 /* ========== 类型 ========== */
 
@@ -13,9 +14,6 @@ interface ContributionDay {
 }
 
 type WeekGrid = (ContributionDay | null)[][]
-
-const DAYS = ["一", "二", "三", "四", "五", "六", "日"]
-const MONTH_LABELS = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
 
 /* ========== 工具 ========== */
 
@@ -32,9 +30,13 @@ function fmtDate(d: Date): string {
     return d.toISOString().split("T")[0]
 }
 
-function formatDateCN(dateStr: string): string {
+function formatDate(dateStr: string, locale: string): string {
     const [y, m, d] = dateStr.split("-")
-    return `${y}年${parseInt(m)}月${parseInt(d)}日`
+    if (locale === 'zh') {
+        return `${y}年${parseInt(m)}月${parseInt(d)}日`
+    }
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    return `${monthNames[parseInt(m) - 1]} ${parseInt(d)}, ${y}`
 }
 
 function buildMonthGrid(year: number, month: number, allDays: ContributionDay[]): WeekGrid | null {
@@ -79,6 +81,11 @@ export function GithubContributions() {
     useEffect(() => { setMounted(true) }, [])
 
     const isDark = mounted && resolvedTheme === "dark"
+    const locale = useLocale()
+    const t = useTranslations('github')
+
+    const months = t.raw('months') as string[]
+    const days = t.raw('days') as string[]
 
     /* ---- 拉取数据 ---- */
 
@@ -140,11 +147,11 @@ export function GithubContributions() {
             const y0 = cur[0].split("-")[0]
             const y3 = cur[3].split("-")[0]
             const yr = y0 === y3 ? y0 : `${y0}/${y3}`
-            return `${yr} ${MONTH_LABELS[m0 - 1]}~${MONTH_LABELS[m3 - 1]}`
+            return `${yr} ${months[m0 - 1]}~${months[m3 - 1]}`
         })()
 
         return { quarters: qs, quarterLabel: label }
-    }, [allDays, quarter])
+    }, [allDays, quarter, months])
 
     const currentMonths = quarters[quarter] || []
 
@@ -202,7 +209,7 @@ export function GithubContributions() {
     if (error) {
         return (
             <div className="mt-3">
-                <p className="text-[10px] text-zinc-400 font-mono mb-1">GitHub 动态</p>
+                <p className="text-[10px] text-zinc-400 font-mono mb-1">{t('githubActivity')}</p>
                 <img
                     src="https://ghchart.rshah.org/Neumann615"
                     alt="GitHub"
@@ -252,11 +259,11 @@ export function GithubContributions() {
                         <div key={mKey}>
                             {/* 月份 */}
                             <p className="text-[12px] font-mono text-zinc-500 dark:text-zinc-400 mb-[2px] text-center">
-                                {MONTH_LABELS[m - 1]}
+                                        {months[m - 1]}
                             </p>
                             {/* 表头 */}
                             <div className="flex gap-[2px] justify-center mb-[2px]">
-                                {DAYS.map((label, i) => (
+                                                {days.map((label, i) => (
                                     <span
                                         key={i}
                                         className="text-[9px] leading-[12px] text-zinc-500 dark:text-zinc-400 font-mono w-4 text-center"
@@ -274,7 +281,7 @@ export function GithubContributions() {
                                                 key={di}
                                                 className="w-4 h-4 rounded-sm flex-shrink-0 cursor-pointer"
                                                 style={{ backgroundColor: cellColor(day) }}
-                                                title={day ? `${formatDateCN(day.date)} ${day.contributionCount} 次` : ""}
+                                                title={day ? `${formatDate(day.date, locale)} ${t('contributionsCount', { count: day.contributionCount })}` : ""}
                                             />
                                         ))}
                                     </div>

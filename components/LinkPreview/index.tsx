@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback, useEffect } from "react"
+import { useTranslations } from "next-intl"
 
 export interface LinkPreviewProps {
   url: string
@@ -24,6 +25,7 @@ export function LinkPreview({
   height = 180,
   className,
 }: LinkPreviewProps) {
+  const t = useTranslations('linkPreview')
   const [previewData, setPreviewData] = useState<PreviewData | null>(null)
   const [loading, setLoading] = useState(false)
   const [imageError, setImageError] = useState(false)
@@ -141,7 +143,7 @@ export function LinkPreview({
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     />
                   </svg>
-                  加载预览...
+                  {t('loading')}
                 </div>
               </div>
             ) : imageError || !previewData?.screenshot ? (

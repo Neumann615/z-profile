@@ -2,13 +2,15 @@
 
 import { GitHubIcon, MailIcon, WxIcon } from '@/components/Icon'
 import { SparklesText } from '@/components/SparklesText'
-import { GithubContributions } from '@/components/GithubContributions'
+import { GithubYearContributions } from '@/components/GithubYearContributions'
 import { LinkPreview } from '@/components/LinkPreview'
 import { cn } from '@/utils'
 import { useTheme } from 'next-themes'
+import { useLocale, useTranslations } from 'next-intl'
+import profileZh from '@/data/profile.zh.json'
+import profileEn from '@/data/profile.en.json'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import profile from '@/data/profile.json'
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     github: GitHubIcon,
@@ -37,14 +39,19 @@ function useInView(threshold = 0.1) {
 /* ========== 主页面 ========== */
 
 export default function Home() {
+    const locale = useLocale()
+    const t = useTranslations('home')
+    const profile = locale === 'en' ? profileEn : profileZh
+
     return (
         <div className="mx-auto max-w-6xl w-full px-4 md:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row lg:gap-8">
-                <Sidebar />
-                <main className="flex-1 lg:pt-4 pb-4">
-                    <SkillSection />
-                    <ProjectSection />
-                    <Footer />
+                <Sidebar profile={profile} t={t} />
+                <main className="flex-1 min-w-0 lg:pt-4 pb-4">
+                    <SkillSection profile={profile} t={t} />
+                    <ProjectSection profile={profile} t={t} />
+                    <GithubYearContributions />
+                    <Footer profile={profile} t={t} />
                 </main>
             </div>
         </div>
@@ -53,18 +60,18 @@ export default function Home() {
 
 /* ========== 左侧栏 ========== */
 
-function Sidebar() {
+function Sidebar({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
     return (
-        <aside className="pt-4 lg:pt-6 lg:w-[280px] pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
-            <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
-                <div className="relative flex-shrink-0">
+        <aside className="pt-4 lg:pt-6 lg:w-[280px] shrink-0 pb-6 lg:pb-0 animate-in fade-in slide-in-from-left-4 duration-700">
+            <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-4">
+                <div className="relative flex-shrink-0 lg:self-center">
                     <div className="absolute inset-0 rounded-full bg-gradient-to-br from-zinc-400 to-zinc-600 dark:from-zinc-500 dark:to-zinc-300 blur-md opacity-30" />
                     <Image
                         src={profile.personal.avatar}
                         alt="avatar"
-                        width={64}
-                        height={64}
-                        className="relative w-14 h-14 lg:w-16 lg:h-16 rounded-full border-2 border-white/70 dark:border-zinc-700/70 shadow-md"
+                        width={240}
+                        height={240}
+                        className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-60 lg:h-60 rounded-full border-2 border-white/70 dark:border-zinc-700/70 shadow-md"
                     />
                 </div>
                 <div className="flex flex-col">
@@ -82,6 +89,17 @@ function Sidebar() {
             <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                 {profile.personal.bio}
             </p>
+
+            {profile.personal.motto && (
+                <div className="mt-3 px-3 py-2 rounded-lg border-l-2 border-zinc-300 dark:border-zinc-600 bg-zinc-50/80 dark:bg-zinc-800/50">
+                    <p className="text-[10px] text-zinc-400 dark:text-zinc-500 font-mono uppercase tracking-wider mb-0.5">
+                        {t('mottoLabel')}
+                    </p>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-300 font-medium italic">
+                        {profile.personal.motto}
+                    </p>
+                </div>
+            )}
 
             <div className="mt-4 flex flex-col sm:flex-row lg:flex-col gap-2 lg:gap-1">
                 {profile.contacts.map((item) => {
@@ -101,8 +119,6 @@ function Sidebar() {
                     )
                 })}
             </div>
-
-            <GithubContributions />
         </aside>
     )
 }
@@ -126,7 +142,7 @@ const skillNames: Record<string, string> = {
     docker: 'Docker',
 }
 
-function SkillSection() {
+function SkillSection({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
     const { ref, inView } = useInView(0.05)
     const { resolvedTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
@@ -143,7 +159,7 @@ function SkillSection() {
             )}
         >
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
-                技术栈
+                {t('skillSectionTitle')}
             </h2>
             <div className="grid grid-cols-6 sm:grid-cols-12 gap-1.5">
                 {profile.skills.map((code) => (
@@ -169,7 +185,7 @@ function SkillSection() {
 
 /* ========== 项目卡片 ========== */
 
-function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
+function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t: (key: string) => string }) {
     const cardRef = useRef<HTMLAnchorElement>(null)
     const [pos, setPos] = useState({ x: 0.5, y: 0.5 })
     const { resolvedTheme } = useTheme()
@@ -187,6 +203,8 @@ function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
         ? 'rgba(255,255,255,0.08)'
         : 'rgba(0,0,0,0.07)'
 
+    const typeLabel = project.type === "company" ? t('projectTypeCompany') : t('projectTypeOpensource')
+
     return (
         <LinkPreview url={project.url}>
             <a
@@ -195,7 +213,7 @@ function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseMove={handleMouseMove}
-                className="group relative block p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-sm transition-all overflow-hidden"
+                className="group relative flex flex-col p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-sm transition-all overflow-hidden min-h-[150px]"
             >
                 {/* 聚光效果 */}
                 <div
@@ -204,34 +222,35 @@ function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
                         background: `radial-gradient(circle 200px at ${pos.x * 100}% ${pos.y * 100}%, ${glowColor}, transparent 80%)`,
                     }}
                 />
-                <div className="relative z-[1]">
+                <div className="relative z-[1] flex flex-col flex-1">
                     <div className="flex items-center gap-2.5 mb-2">
-                        <Image
-                            src={project.icon}
-                            alt={project.title}
-                            width={24}
-                            height={24}
-                            className="rounded-md w-6 h-6 object-cover flex-shrink-0"
-                        />
-                        <h3 className="font-semibold text-sm text-zinc-800 dark:text-zinc-100 truncate">
+                        {project.icon && (
+                            <Image
+                                src={project.icon}
+                                alt={project.title}
+                                width={32}
+                                height={32}
+                                className="rounded-md w-8 h-8 object-cover flex-shrink-0"
+                            />
+                        )}
+                        <h3 className="text-xl font-mono font-bold text-zinc-800 dark:text-zinc-100 truncate">
                             {project.title}
                         </h3>
-                        {project.github && (
-                            <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="ml-auto text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors flex-shrink-0"
-                            >
-                                <GitHubIcon className="w-3.5 h-3.5" />
-                            </a>
+                        {project.type && (
+                            <span className={cn(
+                                "ml-auto flex-shrink-0 px-1.5 py-0.5 text-[10px] rounded-md border font-mono",
+                                project.type === "company"
+                                    ? "border-blue-200 dark:border-blue-800 text-blue-500 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30"
+                                    : "border-emerald-200 dark:border-emerald-800 text-emerald-500 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30"
+                            )}>
+                                {typeLabel}
+                            </span>
                         )}
                     </div>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-2.5 line-clamp-2">
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed flex-1 line-clamp-2">
                         {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 mt-2.5">
                         {project.tags.map((tag, i) => (
                             <span
                                 key={i}
@@ -247,7 +266,7 @@ function ProjectCard({ project }: { project: typeof profile.projects[0] }) {
     )
 }
 
-function ProjectSection() {
+function ProjectSection({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
     const { ref, inView } = useInView(0.05)
     return (
         <section
@@ -258,11 +277,11 @@ function ProjectSection() {
             )}
         >
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
-                个人项目
+                {t('projectSectionTitle')}
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
                 {profile.projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} />
+                    <ProjectCard key={index} project={project} t={t} />
                 ))}
             </div>
         </section>
@@ -271,11 +290,11 @@ function ProjectSection() {
 
 /* ========== Footer ========== */
 
-function Footer() {
+function Footer({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
     return (
         <footer className="mt-4 pt-3 border-t border-zinc-200/50 dark:border-zinc-700/50">
             <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-mono">
-                Built with Next.js & Tailwind CSS · © {new Date().getFullYear()} {profile.personal.name}
+                {t('footerBuiltWith')} · © {new Date().getFullYear()} {profile.personal.name}
             </p>
         </footer>
     )

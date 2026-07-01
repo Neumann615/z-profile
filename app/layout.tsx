@@ -1,11 +1,4 @@
-import type { Metadata } from "next"
 import "./globals.css"
-import { LayoutClientWrapper } from "@/components/LayoutClientWrapper"
-
-export const metadata: Metadata = {
-    title: "Neumann615(Z)",
-    description: "前端开发工程师 · 个人主页",
-}
 
 export default function RootLayout({
     children,
@@ -13,7 +6,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html lang="en" className="m-0 h-full p-0 font-sans" suppressHydrationWarning>
+        <html lang="zh-CN" className="m-0 h-full p-0 font-sans" suppressHydrationWarning>
             <head>
                 <script
                     dangerouslySetInnerHTML={{
@@ -35,7 +28,7 @@ export default function RootLayout({
                 />
             </head>
             <body className="w-full h-full">
-                <LayoutClientWrapper>{children}</LayoutClientWrapper>
+                {children}
             </body>
         </html>
     )

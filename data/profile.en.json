@@ -1,0 +1,92 @@
+{
+  "personal": {
+    "name": "Neumann615",
+    "role": "Frontend Engineer",
+    "bio": "Passionate about frontend and open source. Embracing cutting-edge technologies and AI. Easygoing with people, meticulous and self-driven at work, striving for excellence in everything.",
+    "motto": "The path lies beneath your feet",
+    "avatar": "/logo.jpg"
+  },
+  "contacts": [
+    {
+      "type": "wechat",
+      "label": "WeChat",
+      "value": "Z",
+      "href": "/wx-qr-code.png"
+    },
+    {
+      "type": "email",
+      "label": "Email",
+      "value": "2022095028@qq.com",
+      "href": "mailto:neumann615@outlook.com"
+    },
+    {
+      "type": "github",
+      "label": "GitHub",
+      "value": "@Neumann615",
+      "href": "https://github.com/Neumann615"
+    }
+  ],
+  "skills": [
+    "html",
+    "css",
+    "js",
+    "ts",
+    "nodejs",
+    "python",
+    "react",
+    "vue",
+    "angular",
+    "tailwindcss",
+    "nextjs",
+    "nuxtjs",
+    "vite",
+    "webpack",
+    "flutter",
+    "vercel",
+    "nginx",
+    "docker",
+    "mysql",
+    "git"
+  ],
+  "projects": [
+    {
+      "icon": "/renouczion-logo.png",
+      "title": "RenoucZion",
+      "description": "A frontend knowledge documentation site built with VitePress, covering common tech stacks, React, Vue, engineering practices, and more.",
+      "url": "https://zzzpupu.xin",
+      "github": "https://github.com/Neumann615/RenoucZion",
+      "tags": ["VitePress", "Markdown"],
+      "type": "opensource"
+    },
+    {
+      "icon": "/z-admin-logo.svg",
+      "title": "Z-Admin",
+      "description": "React + Ant Design admin dashboard template with multiple layouts, permission-based routing, i18n, theme switching, and responsive design.",
+      "url": "https://admin-docs.zzzpupu.xin",
+      "github": "https://github.com/Neumann615/z-admin",
+      "tags": ["React19", "Antd", "Vite"],
+      "type": "opensource"
+    },
+    {
+      "icon": "",
+      "title": "Z-Board",
+      "description": "Vanilla JS + Canvas online whiteboard and screenshot tool, supporting pen, shapes, and text annotations.",
+      "url": "https://board.zzzpupu.xin",
+      "github": "https://github.com/Neumann615/z-board",
+      "tags": ["TypeScript", "Canvas", "Whiteboard", "Screenshot"],
+      "type": "opensource"
+    },
+    {
+      "icon": "/uoffer-logo.ico",
+      "title": "Z-Uoffer",
+      "description": "Nuxt full-stack website with SSR rendering, SEO-friendly, integrated with CMS content management.",
+      "url": "https://uoffer.zzzpupu.xin",
+      "tags": ["Nuxt.js", "UnoCSS"],
+      "type": "company"
+    }
+  ],
+  "github": {
+    "username": "Neumann615",
+    "label": "GitHub Activity"
+  }
+}

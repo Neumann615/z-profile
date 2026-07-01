@@ -3,6 +3,7 @@
     "name": "Neumann615",
     "role": "前端开发工程师",
     "bio": "热爱前端与开源，追求前沿技术并拥抱 AI。待人松弛，工作苛刻较真、自驱力强，凡事力求尽善尽美。",
+    "motto": "路在脚下",
     "avatar": "/logo.jpg"
   },
   "contacts": [
@@ -49,35 +50,39 @@
   ],
   "projects": [
     {
-      "icon": "/logo.jpg",
+      "icon": "/renouczion-logo.png",
       "title": "RenoucZion",
-      "description": "基于 VitePress 构建的前端知识文档站点，涵盖 React、Vue、工程化等主题。",
+      "description": "基于 VitePress 构建的前端知识文档站点，涵盖 常用技术栈、React、Vue、工程化等内容。",
       "url": "https://zzzpupu.xin",
       "github": "https://github.com/Neumann615/RenoucZion",
-      "tags": ["VitePress", "Markdown"]
+      "tags": ["VitePress", "Markdown"],
+      "type": "opensource"
     },
     {
-      "icon": "/logo.jpg",
+      "icon": "/z-admin-logo.svg",
       "title": "Z-Admin",
-      "description": "React + Ant Design 后台管理模板，权限路由、国际化、主题切换。",
-      "url": "https://admin.zzzpupu.xin",
+      "description": "React + Ant Design 后台管理模板，多种布局方式、权限路由、国际化、主题切换、响应式设计。",
+      "url": "https://admin-docs.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-admin",
-      "tags": ["React", "Antd", "Vite"]
+      "tags": ["React19", "Antd", "Vite"],
+      "type": "opensource"
     },
     {
-      "icon": "/logo.jpg",
+      "icon": "",
       "title": "Z-Board",
       "description": "原生 JS + Canvas 在线白板与截图工具，支持画笔、形状、文字标注。",
       "url": "https://board.zzzpupu.xin",
       "github": "https://github.com/Neumann615/z-board",
-      "tags": ["TypeScript", "Canvas", "Whiteboard" , "Screenshot"]
+      "tags": ["TypeScript", "Canvas", "Whiteboard" , "Screenshot"],
+      "type": "opensource"
     },
     {
-      "icon": "/logo.jpg",
+      "icon": "/uoffer-logo.ico",
       "title": "Z-Uoffer",
-      "description": "Nuxt.js 3 全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
+      "description": "Nuxt全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
       "url": "https://uoffer.zzzpupu.xin",
-      "tags": ["Nuxt.js", "UnoCSS"]
+      "tags": ["Nuxt.js", "UnoCSS"],
+      "type": "opensource"
     }
   ],
   "github": {
