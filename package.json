@@ -1,0 +1,37 @@
+{
+  "name": "z-profile",
+  "version": "1.0.0",
+  "author": "",
+  "description": "个人简介",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.447.0",
+    "next": "14.2.13",
+    "next-intl": "^3.26.5",
+    "next-themes": "^0.3.0",
+    "p5": "^1.10.0",
+    "p5i": "^0.6.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/p5": "^1.7.6",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.13",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

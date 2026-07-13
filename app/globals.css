@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+/*全局过度*/
+::view-transition-image-pair(root) {
+    isolation: auto;
+}
+
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    z-index: 999;
+}
+
+.dark::view-transition-new(root) {
+    z-index: 999;
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+.dark::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+
+*{
+    user-select: none;
+}
+
+@keyframes sparkle {
+    0% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(50deg); }
+    100% { opacity: 0; transform: scale(0) rotate(50deg); }
+}

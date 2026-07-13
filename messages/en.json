@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "description": "Frontend Engineer · Personal Website"
+  },
+  "home": {
+    "mottoLabel": "Motto",
+    "skillSectionTitle": "Tech Stack",
+    "projectSectionTitle": "Projects",
+    "projectTypeCompany": "Company",
+    "projectTypeOpensource": "Open Source",
+    "footerBuiltWith": "Built with Next.js & Tailwind CSS"
+  },
+  "github": {
+    "sectionTitle": "GitHub",
+    "contributionsSectionTitle": "GitHub Contributions",
+    "githubActivity": "GitHub Activity",
+    "contributionsCount": "{count} contributions",
+    "pastYearTotal": "{count} contributions in the past year",
+    "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "legendLess": "Less",
+    "legendMore": "More"
+  },
+  "linkPreview": {
+    "loading": "Loading preview..."
+  }
+}

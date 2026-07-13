@@ -1,0 +1,17 @@
+import {Main} from "@/components/Main"
+import dynamic from "next/dynamic"
+const Header = dynamic(() => import("@/components/Header"), {ssr: false})
+const GlobalBg = dynamic(() => import("@/components/GlobalBg").then(mod => ({default: mod.GlobalBg})), {ssr: false})
+export default function RootLayout({
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode
+}>) {
+    return (
+        <div id='z-container' className={"w-full h-full overflow-y-auto overflow-x-hidden scroll scroll-smooth focus:scroll-auto"}>
+            <GlobalBg/>
+            <Header></Header>
+            <Main>{children}</Main>
+        </div>
+    )
+}
