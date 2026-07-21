@@ -1,8 +1,8 @@
 {
   "personal": {
     "name": "Neumann615",
-    "role": "Frontend Engineer",
-    "bio": "Passionate about frontend and open source. Embracing cutting-edge technologies and AI. Easygoing with people, meticulous and self-driven at work, striving for excellence in everything.",
+    "role": "AI Full-Stack Developer (Frontend-leaning)",
+    "bio": "AI Full-Stack Developer, deep expertise in frontend engineering and cross-platform development. Leveraging AI Agents to accelerate end-to-end delivery. Easygoing with people, meticulous and self-driven at work, striving for excellence in everything.",
     "motto": "The path lies beneath your feet",
     "avatar": "/logo.jpg"
   },
@@ -42,6 +42,7 @@
     "webpack",
     "flutter",
     "vercel",
+    "express",
     "hono",
     "nginx",
     "docker",

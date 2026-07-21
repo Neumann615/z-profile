@@ -138,6 +138,7 @@ const skillNames: Record<string, string> = {
     rust: 'Rust',
     flutter: 'Flutter',
     vercel: 'Vercel',
+    express: 'Express',
     hono: 'Hono',
     nginx: 'Nginx',
     docker: 'Docker',
