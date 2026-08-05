@@ -55,7 +55,7 @@
       "title": "Zealous-admin",
       "description": "React + Ant Design 后台管理模板，多种布局方式、权限路由、国际化、主题切换、响应式设计。",
       "url": "https://admin-docs.zzzpupu.xin",
-      "github": "https://github.com/Neumann615/z-admin",
+      "github": "https://github.com/Neumann615/zealous-admin",
       "tags": ["React19", "Antd", "Vite"],
       "type": "opensource"
     },
@@ -69,20 +69,12 @@
       "type": "opensource"
     },
     {
-      "icon": "",
-      "title": "Z-Board",
-      "description": "原生 JS + Canvas 在线白板与截图工具，支持画笔、形状、文字标注。",
-      "url": "https://board.zzzpupu.xin",
-      "github": "https://github.com/Neumann615/z-board",
-      "tags": ["TypeScript", "Canvas", "Whiteboard" , "Screenshot"],
-      "type": "opensource"
-    },
-    {
-      "icon": "/uoffer-logo.ico",
-      "title": "Z-Uoffer",
-      "description": "Nuxt全栈网站，SSR 渲染，SEO 友好，集成 CMS 内容管理。",
-      "url": "https://uoffer.zzzpupu.xin",
-      "tags": ["Nuxt.js", "UnoCSS"],
+      "icon": "/logo.jpg",
+      "title": "Z-Profile",
+      "description": "Next.js 14 个人主页，支持中英文国际化、深浅主题与响应式布局。",
+      "url": "https://me.zzzpupu.xin/",
+      "github": "https://github.com/Neumann615/z-profile",
+      "tags": ["Next.js", "TailwindCSS"],
       "type": "opensource"
     }
   ],

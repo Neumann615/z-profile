@@ -55,7 +55,7 @@
       "title": "Zealous-admin",
       "description": "React + Ant Design admin dashboard template with multiple layouts, permission-based routing, i18n, theme switching, and responsive design.",
       "url": "https://admin-docs.zzzpupu.xin",
-      "github": "https://github.com/Neumann615/z-admin",
+      "github": "https://github.com/Neumann615/zealous-admin",
       "tags": ["React19", "Antd", "Vite"],
       "type": "opensource"
     },
@@ -69,21 +69,13 @@
       "type": "opensource"
     },
     {
-      "icon": "",
-      "title": "Z-Board",
-      "description": "Vanilla JS + Canvas online whiteboard and screenshot tool, supporting pen, shapes, and text annotations.",
-      "url": "https://board.zzzpupu.xin",
-      "github": "https://github.com/Neumann615/z-board",
-      "tags": ["TypeScript", "Canvas", "Whiteboard", "Screenshot"],
+      "icon": "/logo.jpg",
+      "title": "Z-Profile",
+      "description": "Next.js 14 personal homepage with i18n (zh/en), dark/light theme, and responsive layout.",
+      "url": "https://me.zzzpupu.xin/",
+      "github": "https://github.com/Neumann615/z-profile",
+      "tags": ["Next.js", "TailwindCSS"],
       "type": "opensource"
-    },
-    {
-      "icon": "/uoffer-logo.ico",
-      "title": "Z-Uoffer",
-      "description": "Nuxt full-stack website with SSR rendering, SEO-friendly, integrated with CMS content management.",
-      "url": "https://uoffer.zzzpupu.xin",
-      "tags": ["Nuxt.js", "UnoCSS"],
-      "type": "company"
     }
   ],
   "github": {

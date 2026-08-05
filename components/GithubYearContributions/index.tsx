@@ -9,8 +9,7 @@ import { useLocale, useTranslations } from "next-intl"
 interface ContributionDay {
     date: string
     contributionCount: number
-    color: string
-    contributionLevel: string
+    level: number // 0-4，对应 GitHub 贡献等级
 }
 
 type ContributionWeek = ContributionDay[]
@@ -26,6 +25,10 @@ const DAY_LABEL_W = 28 // 24px 宽度 + 4px margin-right
 const MIN_WEEKS = 15
 const MAX_WEEKS = 53 // API 一年最多 53 周
 
+// 深浅主题下的 5 级贡献色（level 0-4，取自 GitHub 官方色板）
+const LEVEL_COLORS_LIGHT = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+const LEVEL_COLORS_DARK = ['rgba(255,255,255,0.06)', '#0e4429', '#006d32', '#26a641', '#39d353']
+
 export function GithubYearContributions() {
     const [rawWeeks, setRawWeeks] = useState<ContributionWeek[]>([])
     const [loading, setLoading] = useState(true)
@@ -35,6 +38,7 @@ export function GithubYearContributions() {
     const [mounted, setMounted] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const [containerWidth, setContainerWidth] = useState(0)
+    const [tooltip, setTooltip] = useState<{ x: number; y: number; text: string } | null>(null)
     useEffect(() => { setMounted(true) }, [])
     useEffect(() => {
         const el = containerRef.current
@@ -69,12 +73,25 @@ export function GithubYearContributions() {
     useEffect(() => {
         if (fetchedRef.current) return
         fetchedRef.current = true
-        fetch("https://github-contributions-api.deno.dev/Neumann615.json")
-            .then((res) => res.json())
+        // y=last：只返回最近一年（正序），否则 API 默认返回全部年份且按年倒序，slice(-N) 会取到最早的数据
+        fetch("https://github-contributions-api.jogruber.de/v4/Neumann615?y=last")
+            .then((res) => {
+                // 限流(429)/服务异常等非 2xx 直接抛错，走降级方案
+                if (!res.ok) throw new Error(`HTTP ${res.status}`)
+                return res.json()
+            })
             .then((data) => {
-                // 保留 API 原始周结构，不做展平重建
-                const weeks: ContributionWeek[] = data.contributions || []
-                setRawWeeks(weeks)
+                // 限流时也可能返回 200 但带 error 字段，或没有贡献数组，同样走降级
+                if (data.error || !Array.isArray(data.contributions)) {
+                    throw new Error(data.error || "Invalid response")
+                }
+                // API 返回扁平逐日数组 {date, count, level}，需按周（周日开头）分组
+                const days: ContributionDay[] = data.contributions.map((c: { date: string; count: number; level: number }) => ({
+                    date: c.date,
+                    contributionCount: c.count,
+                    level: c.level,
+                }))
+                setRawWeeks(groupByWeeks(days))
                 setLoading(false)
             })
             .catch(() => {
@@ -82,6 +99,21 @@ export function GithubYearContributions() {
                 setLoading(false)
             })
     }, [])
+
+    // 按周日开头把逐日数组分组成周
+    function groupByWeeks(days: ContributionDay[]): ContributionWeek[] {
+        const weeks: ContributionWeek[] = []
+        let current: ContributionDay[] = []
+        for (const day of days) {
+            if (current.length > 0 && new Date(day.date + "T00:00:00Z").getUTCDay() === 0) {
+                weeks.push(current)
+                current = []
+            }
+            current.push(day)
+        }
+        if (current.length) weeks.push(current)
+        return weeks
+    }
 
     /* ---- 根据容器宽度动态计算显示多少周 ---- */
 
@@ -123,8 +155,7 @@ export function GithubYearContributions() {
 
     function cellColor(day: ContributionDay | null): string {
         if (!day) return "transparent"
-        if (isDark && day.contributionCount === 0) return "rgba(255,255,255,0.06)"
-        return day.color
+        return (isDark ? LEVEL_COLORS_DARK : LEVEL_COLORS_LIGHT)[day.level]
     }
 
     /* ---- 加载态 ---- */
@@ -161,7 +192,7 @@ export function GithubYearContributions() {
                 <img
                     src="https://ghchart.rshah.org/Neumann615"
                     alt="GitHub Contributions"
-                    className="w-full rounded-md dark:invert dark:hue-rotate-180 opacity-70"
+                    className="w-full rounded-md dark:invert dark:hue-rotate-180"
                 />
             </section>
         )
@@ -240,11 +271,15 @@ export function GithubYearContributions() {
                                                 height: CELL,
                                                 backgroundColor: cellColor(day),
                                             }}
-                                            title={
-                                                day
-                                                    ? `${formatDate(day.date)} ${t('contributionsCount', { count: day.contributionCount })}`
-                                                    : ""
-                                            }
+                                            onMouseMove={(e) => {
+                                                if (!day) return
+                                                setTooltip({
+                                                    x: e.clientX,
+                                                    y: e.clientY,
+                                                    text: `${formatDate(day.date)} ${t('contributionsCount', { count: day.contributionCount })}`,
+                                                })
+                                            }}
+                                            onMouseLeave={() => setTooltip(null)}
                                         />
                                     )
                                 })}
@@ -253,6 +288,16 @@ export function GithubYearContributions() {
                     </div>
                 </div>
             </div>
+
+            {/* 悬停提示（fixed 定位，避免被 overflow-x-auto 裁剪） */}
+            {tooltip && (
+                <div
+                    className="fixed z-50 pointer-events-none px-2 py-1 rounded-md bg-zinc-900 text-zinc-100 text-xs whitespace-nowrap shadow-lg dark:bg-zinc-100 dark:text-zinc-900"
+                    style={{ left: tooltip.x + 12, top: tooltip.y + 12 }}
+                >
+                    {tooltip.text}
+                </div>
+            )}
         </section>
     )
 }

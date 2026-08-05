@@ -46,7 +46,9 @@ export function LinkPreview({
     setImageError(false)
     try {
       const response = await fetch(
-        `https://api.microlink.io?url=${encodeURIComponent(url)}&meta=true&screenshot=true`
+        // waitUntil=networkidle2 等页面加载完成，waitForTimeout=3000 再延时 3s，
+        // 确保目标站点的加载动画走完后再截图，避免截到一片黑
+        `https://api.microlink.io?url=${encodeURIComponent(url)}&meta=true&screenshot=true&waitUntil=networkidle2&waitForTimeout=3000`
       )
       const data = await response.json()
       if (data.data) {

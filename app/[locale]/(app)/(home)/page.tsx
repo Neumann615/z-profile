@@ -188,7 +188,7 @@ function SkillSection({ profile, t }: { profile: typeof profileZh; t: (key: stri
 /* ========== 项目卡片 ========== */
 
 function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t: (key: string) => string }) {
-    const cardRef = useRef<HTMLAnchorElement>(null)
+    const cardRef = useRef<HTMLDivElement>(null)
     const [pos, setPos] = useState({ x: 0.5, y: 0.5 })
     const { resolvedTheme } = useTheme()
 
@@ -209,11 +209,8 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
 
     return (
         <LinkPreview url={project.url}>
-            <a
+            <div
                 ref={cardRef}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 onMouseMove={handleMouseMove}
                 className="group relative flex flex-col p-4 rounded-xl border border-zinc-200/70 dark:border-zinc-700/50 bg-white/50 dark:bg-zinc-800/30 hover:border-zinc-300 dark:hover:border-zinc-600 hover:shadow-sm transition-all overflow-hidden min-h-[150px]"
             >
@@ -224,8 +221,14 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
                         background: `radial-gradient(circle 200px at ${pos.x * 100}% ${pos.y * 100}%, ${glowColor}, transparent 80%)`,
                     }}
                 />
-                <div className="relative z-[1] flex flex-col flex-1">
-                    <div className="flex items-center gap-2.5 mb-2">
+                {/* 卡片主体：跳转部署站点 */}
+                <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-[1] flex flex-col flex-1"
+                >
+                    <div className="flex items-center gap-2.5 mb-2 pr-20">
                         {project.icon && (
                             <Image
                                 src={project.icon}
@@ -238,21 +241,11 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
                         <h3 className="text-xl font-mono font-bold text-zinc-800 dark:text-zinc-100 truncate">
                             {project.title}
                         </h3>
-                        {project.type && (
-                            <span className={cn(
-                                "ml-auto flex-shrink-0 px-1.5 py-0.5 text-[10px] rounded-md border font-mono",
-                                project.type === "company"
-                                    ? "border-blue-200 dark:border-blue-800 text-blue-500 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30"
-                                    : "border-emerald-200 dark:border-emerald-800 text-emerald-500 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30"
-                            )}>
-                                {typeLabel}
-                            </span>
-                        )}
                     </div>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed flex-1 line-clamp-2">
                         {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-1 mt-2.5">
+                    <div className="flex flex-wrap gap-1 mt-2.5 pr-8">
                         {project.tags.map((tag, i) => (
                             <span
                                 key={i}
@@ -262,8 +255,33 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
                             </span>
                         ))}
                     </div>
+                </a>
+                {/* 右上角：类型徽标 */}
+                <div className="absolute top-3.5 right-3.5 z-[2]">
+                    {project.type && (
+                        <span className={cn(
+                            "px-1.5 py-0.5 text-[10px] rounded-md border font-mono",
+                            project.type === "company"
+                                ? "border-blue-200 dark:border-blue-800 text-blue-500 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-900/30"
+                                : "border-emerald-200 dark:border-emerald-800 text-emerald-500 dark:text-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30"
+                        )}>
+                            {typeLabel}
+                        </span>
+                    )}
                 </div>
-            </a>
+                {/* 右下角：GitHub 链接 */}
+                {project.github && (
+                    <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="GitHub"
+                        className="absolute bottom-3 right-3 z-[2] p-1 rounded-md text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-700/60 transition-colors"
+                    >
+                        <GitHubIcon className="w-4 h-4" />
+                    </a>
+                )}
+            </div>
         </LinkPreview>
     )
 }
