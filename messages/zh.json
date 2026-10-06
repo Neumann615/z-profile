@@ -23,5 +23,9 @@
   },
   "linkPreview": {
     "loading": "加载预览..."
+  },
+  "a11y": {
+    "switchToLight": "切换到浅色模式",
+    "switchToDark": "切换到深色模式"
   }
 }

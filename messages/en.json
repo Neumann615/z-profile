@@ -23,5 +23,9 @@
   },
   "linkPreview": {
     "loading": "Loading preview..."
+  },
+  "a11y": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
   }
 }

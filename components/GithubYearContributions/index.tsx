@@ -73,8 +73,8 @@ export function GithubYearContributions() {
     useEffect(() => {
         if (fetchedRef.current) return
         fetchedRef.current = true
-        // y=last：只返回最近一年（正序），否则 API 默认返回全部年份且按年倒序，slice(-N) 会取到最早的数据
-        fetch("https://github-contributions-api.jogruber.de/v4/Neumann615?y=last")
+        // 走服务端缓存路由，避免每位访客直接命中第三方限流接口
+        fetch("/api/contributions")
             .then((res) => {
                 // 限流(429)/服务异常等非 2xx 直接抛错，走降级方案
                 if (!res.ok) throw new Error(`HTTP ${res.status}`)
@@ -132,9 +132,10 @@ export function GithubYearContributions() {
 
         const recent = rawWeeks.slice(-weekCount)
 
-        // 月份标签：在月份首次出现的列放置标签
+        // 月份标签：在月份首次出现的列放置标签；与上一个标签间隔不足 4 列时跳过，避免文字粘连
         const seenMonth = new Set<string>()
         const labels: { col: number; label: string }[] = []
+        let lastLabelCol = -Infinity
         for (let wi = 0; wi < recent.length; wi++) {
             for (let di = 0; di < recent[wi].length; di++) {
                 const day = recent[wi][di]
@@ -142,6 +143,8 @@ export function GithubYearContributions() {
                 const mKey = day.date.slice(0, 7)
                 if (!seenMonth.has(mKey)) {
                     seenMonth.add(mKey)
+                    if (wi - lastLabelCol < 4) continue
+                    lastLabelCol = wi
                     const m = parseInt(day.date.split("-")[1]) - 1
                     labels.push({ col: wi, label: months[m] })
                 }

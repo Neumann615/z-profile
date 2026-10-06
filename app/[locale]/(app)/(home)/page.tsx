@@ -18,24 +18,6 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     wechat: WxIcon,
 }
 
-/* ========== 动画 Hook ========== */
-
-function useInView(threshold = 0.1) {
-    const ref = useRef<HTMLDivElement>(null)
-    const [inView, setInView] = useState(false)
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-        const observer = new IntersectionObserver(
-            ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.unobserve(el) } },
-            { threshold }
-        )
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [threshold])
-    return { ref, inView }
-}
-
 /* ========== 主页面 ========== */
 
 export default function Home() {
@@ -126,8 +108,14 @@ function Sidebar({ profile, t }: { profile: typeof profileZh; t: (key: string) =
 /* ========== 技术栈 ========== */
 
 const skillNames: Record<string, string> = {
+    html: 'HTML',
+    css: 'CSS',
     js: 'JavaScript',
     ts: 'TypeScript',
+    nodejs: 'Node.js',
+    python: 'Python',
+    mysql: 'MySQL',
+    git: 'Git',
     react: 'React',
     vue: 'Vue',
     nextjs: 'Next.js',
@@ -145,7 +133,6 @@ const skillNames: Record<string, string> = {
 }
 
 function SkillSection({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
-    const { ref, inView } = useInView(0.05)
     const { resolvedTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
     useEffect(() => { setMounted(true) }, [])
@@ -153,13 +140,7 @@ function SkillSection({ profile, t }: { profile: typeof profileZh; t: (key: stri
     const theme = mounted ? (resolvedTheme === 'dark' ? 'dark' : 'light') : 'light'
 
     return (
-        <section
-            ref={ref}
-            className={cn(
-                'mb-4 transition-all duration-500',
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-        >
+        <section className="mb-4 rise-in" style={{ animationDelay: '120ms' }}>
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
                 {t('skillSectionTitle')}
             </h2>
@@ -187,7 +168,7 @@ function SkillSection({ profile, t }: { profile: typeof profileZh; t: (key: stri
 
 /* ========== 项目卡片 ========== */
 
-function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t: (key: string) => string }) {
+function ProjectCard({ project, t, wide }: { project: typeof profileZh.projects[0]; t: (key: string) => string; wide?: boolean }) {
     const cardRef = useRef<HTMLDivElement>(null)
     const [pos, setPos] = useState({ x: 0.5, y: 0.5 })
     const { resolvedTheme } = useTheme()
@@ -208,7 +189,7 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
     const typeLabel = project.type === "company" ? t('projectTypeCompany') : t('projectTypeOpensource')
 
     return (
-        <LinkPreview url={project.url}>
+        <LinkPreview url={project.url} className={wide ? 'sm:col-span-2' : undefined}>
             <div
                 ref={cardRef}
                 onMouseMove={handleMouseMove}
@@ -287,21 +268,22 @@ function ProjectCard({ project, t }: { project: typeof profileZh.projects[0]; t:
 }
 
 function ProjectSection({ profile, t }: { profile: typeof profileZh; t: (key: string) => string }) {
-    const { ref, inView } = useInView(0.05)
+    // visible: false 的项目保留数据但从页面隐藏，后续放开删掉该字段即可
+    const projects = profile.projects.filter(p => p.visible !== false)
+    const lastOdd = projects.length % 2 === 1
     return (
-        <section
-            ref={ref}
-            className={cn(
-                'transition-all duration-500 delay-100',
-                inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-        >
+        <section className="rise-in" style={{ animationDelay: '200ms' }}>
             <h2 className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
                 {t('projectSectionTitle')}
             </h2>
             <div className="grid sm:grid-cols-2 gap-3">
-                {profile.projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} t={t} />
+                {projects.map((project, index) => (
+                    <ProjectCard
+                        key={index}
+                        project={project}
+                        t={t}
+                        wide={lastOdd && index === projects.length - 1}
+                    />
                 ))}
             </div>
         </section>

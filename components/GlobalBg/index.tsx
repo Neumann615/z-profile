@@ -21,6 +21,9 @@ export function GlobalBg() {
         cos,
         sin,
         TWO_PI,
+        noLoop,
+        loop,
+        redraw,
     } = p5i()
 
     let w = window.innerWidth
@@ -93,10 +96,29 @@ export function GlobalBg() {
 
     useEffect(() => {
         restart()
+        // 系统偏好减少动态效果时只渲染静态一帧；标签页切到后台时暂停循环
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+        const applyMotionPref = () => {
+            if (reduceMotion.matches) {
+                redraw()
+                noLoop()
+            } else {
+                loop()
+            }
+        }
+        const onVisibility = () => {
+            if (document.hidden) noLoop()
+            else applyMotionPref()
+        }
+        applyMotionPref()
+        reduceMotion.addEventListener('change', applyMotionPref)
+        document.addEventListener('visibilitychange', onVisibility)
         window.addEventListener('resize', windowResize)
         return () => {
-            unmount()
+            reduceMotion.removeEventListener('change', applyMotionPref)
+            document.removeEventListener('visibilitychange', onVisibility)
             window.removeEventListener('resize', windowResize)
+            unmount()
         }
     }, [resolvedTheme])
     return <div ref={el} className="z-[-999] fixed bottom-0 left-0 right-0 top-0 w-full h-full select-none"></div>

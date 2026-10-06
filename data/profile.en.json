@@ -57,7 +57,8 @@
       "url": "https://admin-docs.zzzpupu.xin",
       "github": "https://github.com/Neumann615/zealous-admin",
       "tags": ["React19", "Antd", "Vite"],
-      "type": "opensource"
+      "type": "opensource",
+      "visible": false
     },
     {
       "icon": "/renouczion-logo.png",

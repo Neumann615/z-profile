@@ -1,12 +1,14 @@
 'use client';
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useTranslations } from 'next-intl'
 import { flushSync } from 'react-dom'
 import { useRef } from 'react'
 
 export function ThemeSwitch() {
     const { resolvedTheme, setTheme } = useTheme()
-    const darkBtnRef = useRef<HTMLDivElement>(null)
+    const t = useTranslations('a11y')
+    const darkBtnRef = useRef<HTMLButtonElement>(null)
 
     function toggleDarkMode() {
         const next = resolvedTheme === 'dark' ? 'light' : 'dark'
@@ -56,11 +58,19 @@ export function ThemeSwitch() {
 
     const isDark = resolvedTheme === 'dark'
 
-    return <div ref={darkBtnRef} onClick={toggleDarkMode}>
-        {isDark ? (
-            <Moon className="w-5.5 text-zinc-500 cursor-pointer" />
-        ) : (
-            <Sun className="w-5.5 text-zinc-500 cursor-pointer" />
-        )}
-    </div>
+    return (
+        <button
+            ref={darkBtnRef}
+            type="button"
+            onClick={toggleDarkMode}
+            aria-label={isDark ? t('switchToLight') : t('switchToDark')}
+            className="block rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 dark:focus-visible:ring-zinc-500"
+        >
+            {isDark ? (
+                <Moon className="w-[22px] h-[22px] text-zinc-500 dark:text-zinc-400" />
+            ) : (
+                <Sun className="w-[22px] h-[22px] text-zinc-500" />
+            )}
+        </button>
+    )
 }

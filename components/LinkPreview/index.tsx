@@ -66,14 +66,11 @@ export function LinkPreview({
     }
   }, [url])
 
-  // 组件挂载时立即请求（触屏设备跳过）
-  useEffect(() => {
-    if (!isTouchDevice) fetchPreview()
-  }, [fetchPreview, isTouchDevice])
-
   // ========== hover 触发 ==========
 
   const handleMouseEnter = () => {
+    // 首次悬停才请求预览：避免每个访客挂载即消耗截图服务配额
+    if (!isTouchDevice) fetchPreview()
     clearTimeout(timerRef.current)
     timerRef.current = setTimeout(() => setOpen(true), 200)
   }

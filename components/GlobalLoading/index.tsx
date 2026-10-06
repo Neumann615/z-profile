@@ -50,17 +50,19 @@ export function GlobalLoading(props: {
 
         if (isMobile || videoFailed) {
             // 移动端 / 视频超时：spinner 展示 1.5s 后结束
-            setTimeout(finish, SPINNER_DURATION)
-        } else {
-            // 桌面端视频正常：播放结束视频，ended 后结束
-            const video = endVideoRef.current
-            if (video) {
-                video.addEventListener('ended', finish, {once: true})
-                video.play().catch(() => finish())
-            } else {
-                finish()
-            }
+            const t = setTimeout(finish, SPINNER_DURATION)
+            return () => clearTimeout(t)
         }
+        // 桌面端视频正常：播放结束视频，ended 后结束；4s 仍未结束则强制放行
+        const safety = setTimeout(finish, 4000)
+        const video = endVideoRef.current
+        if (video) {
+            video.addEventListener('ended', finish, {once: true})
+            video.play().catch(() => finish())
+        } else {
+            finish()
+        }
+        return () => clearTimeout(safety)
     }, [isReady, mounted, isMobile, videoFailed, finish])
 
     // 2 秒后标记 ready
