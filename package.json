@@ -4,6 +4,9 @@
   "author": "",
   "description": "个人简介",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
